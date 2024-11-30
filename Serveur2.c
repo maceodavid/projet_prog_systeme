@@ -26,12 +26,14 @@ typedef struct {
     float moyennes[MAX_MATIERES];
 } Etudiant;
 
-// Tableau global des étudiants
 Etudiant etudiants[MAX_ETUDIANTS];
 int nb_etudiants = 0;
 
 // Mutex pour protéger l'accès au tableau des étudiants
 pthread_mutex_t mutex_etudiants = PTHREAD_MUTEX_INITIALIZER;
+
+// Variable globale pour signaler l'arrêt
+volatile sig_atomic_t server_running = 1;
 
 // Fonction pour gérer une requête client
 void traiter_requete(int client_socket) {
@@ -41,6 +43,14 @@ void traiter_requete(int client_socket) {
     // Lire la requête du client
     if (read(client_socket, &requete, sizeof(RequeteClient)) <= 0) {
         perror("Erreur lors de la lecture de la requête");
+        close(client_socket);
+        return;
+    }
+
+    // Vérifier si le message est "fin"
+    if (strcmp(requete.nom, "fin") == 0 && strcmp(requete.prenom, "") == 0) {
+        printf("Message de fin reçu. Arrêt du serveur.\n");
+        server_running = 0; // Indiquer que le serveur doit s'arrêter
         close(client_socket);
         return;
     }
@@ -142,9 +152,10 @@ int main() {
     printf("Serveur en écoute sur le port %d...\n", PORT);
 
     // Boucle principale pour gérer les connexions clients
-    while (1) {
+    while (server_running) {
         int *client_socket = malloc(sizeof(int)); // Allouer dynamiquement pour chaque client
         if ((*client_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t *)&addrlen)) < 0) {
+            if (!server_running) break; // Quitter proprement si le serveur doit s'arrêter
             perror("Erreur : accept");
             free(client_socket);
             continue;
@@ -164,7 +175,8 @@ int main() {
         pthread_detach(thread_id);
     }
 
-    // Fermer le serveur (non atteint ici)
+    // Fermer le serveur
     close(server_fd);
+    printf("Serveur arrêté.\n");
     return 0;
 }
