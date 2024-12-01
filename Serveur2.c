@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <arpa/inet.h>
+#include <signal.h>
 
 #define PORT 8080
 #define MAX_ETUDIANTS 50
