@@ -34,6 +34,9 @@ void initialiser_etudiants() {
     strcpy(etudiants[0].prenom, "Jean");
     etudiants[0].moyennes[0] = 12.5; // Mathématiques
     etudiants[0].moyennes[1] = 14.0; // Physique
+    etudiants[0].moyennes[2] = 10.0; // Français
+    etudiants[0].moyennes[3] = 15.5; // Histoire-géographie
+    etudiants[0].moyennes[4] = 13.0; // Anglais
     nb_etudiants = 1;
 }
 
