@@ -30,8 +30,8 @@ int nb_etudiants = 0; // Nombre d'étudiants enregistrés
 
 void initialiser_etudiants() {
     // Initialisation des étudiants pour l'exemple
-    strcpy(etudiants[0].nom, "Dupont");
-    strcpy(etudiants[0].prenom, "Jean");
+    strcpy(etudiants[0].nom, "David");
+    strcpy(etudiants[0].prenom, "Maceo");
     etudiants[0].moyennes[0] = 12.5; // Mathématiques
     etudiants[0].moyennes[1] = 14.0; // Physique
     etudiants[0].moyennes[2] = 10.0; // Français
