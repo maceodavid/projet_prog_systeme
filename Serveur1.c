@@ -26,10 +26,9 @@ typedef struct {
 } ReponseServeur;
 
 Etudiant etudiants[MAX_ETUDIANTS]; // Tableau des étudiants
-int nb_etudiants = 0; // Nombre d'étudiants enregistrés
+int nb_etudiants = 0; // Nb étudiants enregistrés
 
 void initialiser_etudiants() {
-    // Initialisation des étudiants pour l'exemple
     strcpy(etudiants[0].nom, "David");
     strcpy(etudiants[0].prenom, "Maceo");
     etudiants[0].moyennes[0] = 12.5; // Mathématiques
@@ -44,7 +43,7 @@ void traiter_requete(int client_socket) {
     RequeteClient requete;
     ReponseServeur reponse = {0, 0};
 
-    // Lire la requête
+  
     read(client_socket, &requete, sizeof(RequeteClient));
 
     // Recherche de l'étudiant
@@ -66,7 +65,6 @@ void traiter_requete(int client_socket) {
         reponse.code_erreur = 1; // Étudiant non trouvé
     }
 
-    // Envoyer la réponse
     write(client_socket, &reponse, sizeof(ReponseServeur));
 }
 
@@ -78,13 +76,11 @@ int main() {
 
     initialiser_etudiants();
 
-    // Création de la socket
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
         perror("socket failed");
         exit(EXIT_FAILURE);
     }
 
-    // Attachement de la socket au port
     if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) {
         perror("setsockopt failed");
         exit(EXIT_FAILURE);
@@ -105,7 +101,6 @@ int main() {
 
     printf("Serveur en attente de connexions...\n");
 
-    // Boucle principale
     while (1) {
         if ((client_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t *)&addrlen)) < 0) {
             perror("accept failed");
