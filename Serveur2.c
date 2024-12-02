@@ -118,7 +118,7 @@ void initialiser_etudiants() {
 
 // Programme principal du serveur
 int main() {
-    int server_fd, new_socket;
+    int server_fd;
     struct sockaddr_in address;
     int addrlen = sizeof(address);
 
