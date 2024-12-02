@@ -23,13 +23,11 @@ int main() {
     RequeteClient requete;
     ReponseServeur reponse;
 
-    // Créer la socket
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         printf("Erreur : la création de la socket a échoué\n");
         return -1;
     }
 
-    // Configurer l'adresse du serveur
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
 
@@ -39,7 +37,7 @@ int main() {
         return -1;
     }
 
-    // Se connecter au serveur
+   
     if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
         printf("Erreur : connexion au serveur échouée\n");
         return -1;
@@ -53,10 +51,10 @@ int main() {
     printf("Entrez l'indice de la matière (0-4) : ");
     scanf("%d", &requete.indice_matiere);
 
-    // Envoyer la requête au serveur
+  
     send(sock, &requete, sizeof(RequeteClient), 0);
 
-    // Recevoir la réponse du serveur
+   
     read(sock, &reponse, sizeof(ReponseServeur));
 
     // Afficher la réponse
