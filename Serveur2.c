@@ -97,16 +97,16 @@ void *gerer_client(void *arg) {
 
 // Initialisation du tableau des étudiants (données fictives pour test)
 void initialiser_etudiants() {
-    strcpy(etudiants[0].nom, "Dupont");
-    strcpy(etudiants[0].prenom, "Jean");
+    strcpy(etudiants[0].nom, "David");
+    strcpy(etudiants[0].prenom, "Maceo");
     etudiants[0].moyennes[0] = 12.5;
     etudiants[0].moyennes[1] = 14.0;
     etudiants[0].moyennes[2] = 10.0;
     etudiants[0].moyennes[3] = 15.5;
     etudiants[0].moyennes[4] = 13.0;
 
-    strcpy(etudiants[1].nom, "Martin");
-    strcpy(etudiants[1].prenom, "Claire");
+    strcpy(etudiants[1].nom, "Ravida");
+    strcpy(etudiants[1].prenom, "Lelyan");
     etudiants[1].moyennes[0] = 16.0;
     etudiants[1].moyennes[1] = 14.5;
     etudiants[1].moyennes[2] = 12.0;
